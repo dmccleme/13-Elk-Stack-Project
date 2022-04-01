@@ -1,0 +1,31 @@
+---
+- name: install metric beat
+  hosts: webservers
+  become: true
+  tasks:
+
+  - name: download metricbeats
+    command: curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-7.6.1-amd64.deb
+
+  - name: Install metricbeat
+    command: dpkg -i metricbeat-7.6.1-amd64.deb
+
+  - name: drop in metricbeat
+    copy:
+    # the configuration file was mistakenly installed in wrong directory
+      src: /etc/metricbeat/metricbeat.yml
+      dest: /etc/metricbeat/metricbeat.yml
+
+  - name: enable and config docker module
+    command: metricbeat modules enable docker
+
+  - name: setup metricbeat
+    command: metricbeat setup
+
+  - name: start metricbeat service
+    command: service metricbeat start
+
+  - name: enable metricbeat on boot
+    systemd:
+      name: metricbeat
+      enabled: yes
