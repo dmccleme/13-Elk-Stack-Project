@@ -2,7 +2,7 @@
 
 The files in this repository were used to configure the network depicted below.
 * Project 1 network diagram
- 
+  
 
 These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the YAML file may be used to install only certain pieces of it, such as Filebeat.
 
@@ -10,7 +10,7 @@ These files have been tested and used to generate a live ELK deployment on Azure
 * Filebeat-config.yml
 * Filebeat-playbook.yml
 * Metricbeat-config.yml
-* Metricbeat-playbook.yml
+* metricbeat-playbook.yml
 
 
 This document contains the following details:
@@ -85,16 +85,18 @@ What is the main advantage of automating configuration with Ansible?
        The main advantage of automating configuration with Ansible is that it enables IT administrators the ability to automate your daily work tasks and give the administrator more time to focus on the needs of the business.
 
 The playbook implements the following tasks:
-* Ssh into my jump-box provisioner
-* Restart/attach to ansible docker container
-* Created and ran elk-server.yml
-* Ssh into elk-server to check availability
+* configure to use more memory
+* install docker.io
+* install python3-pip
+* install docker python module
+* install elk stack
+* enable docker service
+
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
 * docker PS command
-NEED IMAGE
-
+ 
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
@@ -115,13 +117,18 @@ These Beats allow us to collect the following information from each machine:
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
-- Copy the filebeat-config file to /etc/ansible/roles/files
+- Copy the filebeat-config file to /etc/ansible/
 - Update the filebeat-config.ynl file to include the ELK-sever private IP
+- update the host file to include the webservers and the elk server
 - Run the playbook, and navigate to http://20.49.3.56:5601/app/kibana to check that the installation worked as expected.
 
-_TODO: Answer the following questions to fill in the blanks:_
-- _Which file is the playbook? Where do you copy it?_
-- _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
-- _Which URL do you navigate to in order to check that the ELK server is running?
 
-_As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
+_TODO: Answer the following questions to fill in the blanks:_
+- _Which file is the playbook? Where do you copy it?_/etc/ansible/elk.yml
+
+- _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat /etc/ansible/hosts
+
+- _Which URL do you navigate to in order to check that the ELK server is running? http://20.207.206.29:5601/app/kinana
+ 
+
+
